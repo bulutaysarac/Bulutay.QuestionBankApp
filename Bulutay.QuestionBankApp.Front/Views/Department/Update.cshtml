@@ -1,0 +1,18 @@
+﻿@model DepartmentUpdateModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<form class="m-auto w-50" method="post" asp-action="Update" asp-controller="Department">
+    <h1 class="text-center mb-5">Bölüm Güncelle</h1>
+    <input type="hidden" asp-for="@Model.Id" />
+    <div class="mb-3">
+        <label asp-for="@Model.Definition">Tanım : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="@Model.Definition"></span>
+        <input class="form-control" type="text" asp-for="@Model.Definition" />
+    </div>
+    <div class="d-grid mb-3">
+        <button class="btn btn-primary w-100" type="submit">Kaydet</button>
+    </div>
+</form>

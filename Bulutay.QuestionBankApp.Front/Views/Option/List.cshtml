@@ -1,0 +1,35 @@
+﻿@model List<OptionListModel>
+@{
+    Layout = "_AdminLayout";
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Seçenek Metni</th>
+            <th>Doğru Mu?</th>
+            <th>Soru Id</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.Count > 0)
+        {
+            @foreach (var option in Model)
+            {
+                <tr>
+                    <td>@option.Id</td>
+                    <td>@option.Body</td>
+                    <td>@option.IsCorrect</td>
+                    <td>@option.QuestionId</td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Update" asp-controller="Option" asp-route-id="@option.Id">Güncelle</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="Option" asp-route-id="@option.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary d-block" type="button" asp-action="Create" asp-controller="Option">Oluştur</a>

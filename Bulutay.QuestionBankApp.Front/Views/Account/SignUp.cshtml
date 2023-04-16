@@ -1,0 +1,27 @@
+﻿@model UserSignUpModel
+@{
+    Layout = "_UserLayout";
+}
+
+<form class="w-50 m-5 p-3 shadow mx-auto" method="post" asp-action="SignUp" asp-controller="Account">
+    <div class="form-floating mb-3">
+        <input class="form-control" asp-for="@Model.Username" type="text" placeholder="Kullanıcı Adı...">
+        <label asp-for="@Model.Username">Kullanıcı Adı</label>
+        <span class="text-danger">*</span>
+        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input class="form-control" asp-for="@Model.Password" type="password" placeholder="Şifre...">
+        <label asp-for="@Model.Password">Şifre</label>
+        <span class="text-danger">*</span>
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input class="form-control" asp-for="@Model.ConfirmPassword" type="password" placeholder="Şifre...">
+        <label asp-for="@Model.ConfirmPassword">Şifre</label>
+        <span class="text-danger">*</span>
+        <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="d-grid"><button class="btn btn-primary btn-lg" type="submit">Kaydol</button></div>
+    <div asp-validation-summary="All" class="text-danger text-center mt-3"></div>
+</form>

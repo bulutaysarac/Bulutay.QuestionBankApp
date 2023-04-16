@@ -1,0 +1,109 @@
+﻿@model QuestionUpdateModel
+@{
+    Layout = "_AdminLayout";
+}
+
+@section css {
+    <link href="~/trumbowyg/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+}
+
+<form class="m-auto w-50" method="post" asp-action="Update" asp-controller="Question">
+    <h1 class="text-center mb-5">Yeni Soru Oluştur</h1>
+    <input type="hidden" id="DataLectureId" value="@ViewBag.DataLectureId" />
+    <div class="mb-3">
+        <label asp-for="@Model.Body">Soru Metni : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="@Model.Body"></span>
+        <textarea asp-for="@Model.Body" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.DepartmentId">Bölüm : </label>
+        <select class="form-control" asp-for="@Model.DepartmentId">
+            <option value="0">Bölüm Seç...</option>
+            @if (ViewBag.Departments is List<DepartmentListModel> departments)
+            {
+                @foreach (var department in departments)
+                {
+                    <option value="@department.Id">@department.Definition</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.LectureId">Ders : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="@Model.LectureId"></span>
+        <select class="form-control" asp-for="@Model.LectureId">
+            <option value="0">Ders Seç...</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.CategoryId">Soru Kategorisi : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="@Model.CategoryId"></span>
+        <select class="form-control" asp-for="@Model.CategoryId">
+            <option value="0">Kategori Seç...</option>
+            @if (ViewBag.Categories is List<CategoryListModel> categories)
+            {
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Definition</option>
+                }
+            }
+        </select>
+    </div>
+    <div id="OptionsContainer" class="mb-3 d-none">
+        <div>
+            <label class="mr-2">Seçenekler</label>
+            <span class="text-danger">*</span>
+            <span class="text-danger" asp-validation-for="Options"></span>
+            <span id="BtnAddOption" class="btn btn-success ml-2">&plus;</span>
+        </div>
+        <br />
+        <div id="OptionsList" class="d-flex flex-column">
+            @if (Model.Options.Count > 0)
+            {
+                for (int i = 0; i < Model.Options.Count; i++)
+                {
+                    <div class="mb-3">
+                        <div>
+                            <span class="text-danger">*</span>
+                            <span class="text-danger" asp-validation-for="@Model.Options[i].Body"></span>
+                        </div>
+                        <div class="d-flex flex-grow-1">
+                            <input type="text" name="Options[@i].Body" value="@Model.Options[i].Body" class="form-control mr-2"><span class="btn btn-danger">−</span>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="mb-3 d-none">
+        <input type="checkbox" asp-for="@Model.IsCorrect" />
+        <label asp-for="@Model.IsCorrect">Doğru Mu?</label>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.UserId">Kullanıcı : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="UserId"></span>
+        <select class="form-control" asp-for="@Model.UserId">
+            <option value="0">Kullanıcı Seç...</option>
+            @if (ViewBag.Users is List<UserListModel> users)
+            {
+                @foreach (var user in users)
+                {
+                    <option value="@user.Id">@user.Username</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="d-grid mb-3">
+        <button class="btn btn-primary w-100" type="submit">Kaydet</button>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/trumbowyg/dist/trumbowyg.min.js"></script>
+    <script src="~/js/question.js"></script>
+}
+

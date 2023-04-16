@@ -1,0 +1,45 @@
+﻿@model UserUpdateModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<form class="m-auto w-50" method="post" asp-action="Update" asp-controller="User">
+    <h1 class="text-center mb-5">Kullanıcı Güncelle</h1>
+    <input type="hidden" asp-for="@Model.Id" />
+    <div class="mb-3">
+        <label asp-for="@Model.Username">Username : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="@Model.Username"></span>
+        <input class="form-control" type="text" asp-for="@Model.Username" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.Password">Password : </label>
+        <span class="text-danger">*</span>
+        <span class="text-danger" asp-validation-for="@Model.Password"></span>
+        <input class="form-control" type="text" asp-for="@Model.Password" />
+    </div>
+    <div class="mb-3">
+        @if (Model != null && Model.DbRoles != null)
+        {
+            for (int i = 0, j = 0; i < Model.DbRoles.Count; i++)
+            {
+                if (Model.OldRoleIds?.Any() == true)
+                {
+                    Model.DbRoles[i].IsSelected = Model.OldRoleIds.Contains(Model.DbRoles[i].Id);
+                    if (Model.DbRoles[i].IsSelected)
+                    {
+                        <input type="hidden" name="OldRoleIds[@j]" value="@Model.DbRoles[i].Id">
+                        j++;
+                    }
+                }
+                <input type="hidden" name="DbRoles[@i].Id" value="@Model.DbRoles[i].Id">
+                <input type="hidden" name="DbRoles[@i].Definition" value="@Model.DbRoles[i].Definition">
+                @Html.CheckBoxFor(m => m.DbRoles[i].IsSelected)
+                @Html.LabelFor(m => m.DbRoles[i].IsSelected, Model.DbRoles[i].Definition)
+            }
+        }
+    </div>
+    <div class="d-grid mb-3">
+        <button class="btn btn-primary w-100" type="submit">Kaydet</button>
+    </div>
+</form>
