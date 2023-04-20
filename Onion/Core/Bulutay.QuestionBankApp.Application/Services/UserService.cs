@@ -6,6 +6,7 @@ using Bulutay.QuestionBankApp.Application.Extensions;
 using Bulutay.QuestionBankApp.Application.Interfaces;
 using Bulutay.QuestionBankApp.Domain.Entities;
 using FluentValidation;
+using System.Data;
 
 namespace Bulutay.QuestionBankApp.Application.Services
 {
@@ -138,6 +139,17 @@ namespace Bulutay.QuestionBankApp.Application.Services
             }
             await _userRoleRepository.CommitAsync();
             return new Response(ResponseType.Success, $"{roleId} role removed from user with id {userId}!");
+        }
+
+        public async Task<IResponse<List<RoleListDto>>> GetRolesByIdAsync(int userId)
+        {
+            var data = await _userRepository.GetRolesById(userId);
+            if(data == null || data != null && data.Count == 0)
+            {
+                return new Response<List<RoleListDto>>(ResponseType.NotFound, "User has no roles!");
+            }
+            var dto = _mapper.Map<List<RoleListDto>>(data);
+            return new Response<List<RoleListDto>>(ResponseType.Success, dto);
         }
     }
 }
