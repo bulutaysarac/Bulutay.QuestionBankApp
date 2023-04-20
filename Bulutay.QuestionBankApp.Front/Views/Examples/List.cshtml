@@ -1,0 +1,26 @@
+﻿@model List<QuestionListModel>
+@{
+    Layout = "_UserLayout";
+}
+
+@if (Model?.Count > 0)
+{
+    @foreach (var question in Model)
+    {
+        <div class="shadow p-2 w-75 mx-auto my-3 text-white bg-secondary rounded">
+            <div class="p-2">
+                @Html.Raw(question.Body)
+            </div>
+            @if (question.Options != null)
+            {
+                for (int i = 0; i < question.Options.Count; i++)
+                {
+                    <div class="p-2">
+                        <span>@(Convert.ToChar('A' + i))-) </span>
+                        @Html.Raw(question.Options[i].Body)
+                    </div>
+                }
+            }
+        </div>
+    }
+}

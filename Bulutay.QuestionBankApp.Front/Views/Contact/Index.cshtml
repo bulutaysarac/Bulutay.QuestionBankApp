@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_UserLayout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center text-white mb-4">Bizimle İletişime Geçin</h2>
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label text-white">İsim</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">E-Mail</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label text-white">Konu</label>
+                    <input type="text" class="form-control" id="subject" name="subject" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label text-white">Mesaj</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <div class="text-center d-block">
+                    <button type="submit" class="btn btn-primary text-white d-block w-100">Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
