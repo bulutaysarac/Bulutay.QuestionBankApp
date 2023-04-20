@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text;
 using System.Linq;
 using FluentValidation;
+using Bulutay.QuestionBankApp.Front.Extensions;
 
 namespace Bulutay.QuestionBankApp.Front.Controllers
 {
@@ -54,10 +55,7 @@ namespace Bulutay.QuestionBankApp.Front.Controllers
                 var response = await QBRequests.CreateAsync(_httpClientFactory, content, QBApiLinks.USERS, userToken);
                 return response.IsSuccessStatusCode ? RedirectToAction("List", "User") : View(model);
             }
-            foreach (var error in validationResult.Errors)
-            {
-                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            }
+            this.AddValidationErrorsToModelState(validationResult);
             var rolesResponse = await QBRequests.GetAllAsync<RoleListModel>(_httpClientFactory, QBApiLinks.ROLES, userToken);
             model.DbRoles = rolesResponse;
             return View(model);
@@ -107,10 +105,7 @@ namespace Bulutay.QuestionBankApp.Front.Controllers
                 var response = await QBRequests.UpdateAsync(_httpClientFactory, content, QBApiLinks.USERS, userToken);
                 return response.IsSuccessStatusCode ? RedirectToAction("List", "User") : View(model);
             }
-            foreach (var error in validationResult.Errors)
-            {
-                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            }
+            this.AddValidationErrorsToModelState(validationResult);
             var rolesResponse = await QBRequests.GetAllAsync<RoleListModel>(_httpClientFactory, QBApiLinks.ROLES, userToken);
             model.DbRoles = rolesResponse;
             return View(model);

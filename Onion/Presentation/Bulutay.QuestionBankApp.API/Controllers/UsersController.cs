@@ -49,7 +49,23 @@ namespace Bulutay.QuestionBankApp.API.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("{id}/roles")]
+        public async Task<IActionResult> GetLectures(int id)
+        {
+            var response = await _mediator.Send(new GetRolesByUserQueryRequest(id));
+            if (response.ResponseType == ResponseType.Success)
+            {
+                return Ok(response.Data);
+            }
+            else if (response.ResponseType == ResponseType.NotFound)
+            {
+                return NotFound(response.Message);
+            }
+            return BadRequest(response.Message);
+        }
+
+            [HttpPost]
         public async Task<IActionResult> Create(CreateUserCommandRequest request)
         {
             var response = await _mediator.Send(request);

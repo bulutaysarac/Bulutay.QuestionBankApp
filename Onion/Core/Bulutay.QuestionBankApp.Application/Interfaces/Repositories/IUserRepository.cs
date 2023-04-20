@@ -9,5 +9,6 @@ namespace Bulutay.QuestionBankApp.Application.Interfaces
         Task<User> GetByIdWithRoles(int id);
         Task<User> GetByFilterWithRoles(Expression<Func<User, bool>> filter);
         Task CreateAsMemberAsync(User entity);
+        Task<List<Role>> GetRolesById(int userId);
     }
 }

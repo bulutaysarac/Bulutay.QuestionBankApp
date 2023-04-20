@@ -47,5 +47,14 @@ namespace Bulutay.QuestionBankApp.Persistance.Repositories
             await _context.Set<User>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Role>> GetRolesById(int userId)
+        {
+            return await _context.Set<UserRole>()
+                .Where(x => x.UserId == userId)
+                .Include(x => x.Role)
+                .Select(x => x.Role)
+                .ToListAsync();
+        }
     }
 }

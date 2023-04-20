@@ -1,6 +1,5 @@
 ﻿using Bulutay.QuestionBankApp.Application.Common;
 using Bulutay.QuestionBankApp.Application.Dtos;
-using Bulutay.QuestionBankApp.Application.Enums;
 using Bulutay.QuestionBankApp.Domain.Entities;
 
 namespace Bulutay.QuestionBankApp.Application.Interfaces
@@ -13,5 +12,6 @@ namespace Bulutay.QuestionBankApp.Application.Interfaces
         Task<IResponse<UserCreateDto>> CreateMemberAsync(UserCreateDto dto);
         Task<IResponse<List<UserListWithRolesDto>>> GetAllWithRolesAsync();
         Task<IResponse<UserListWithRolesDto>> GetByIdWithRolesAsync(int id);
+        Task<IResponse<List<RoleListDto>>> GetRolesByIdAsync(int userId);
     }
 }
